@@ -55,16 +55,18 @@ public class App {
     public static void main(String[] args) {
         for (int i = 0; i < INPUT3.length; i++) {
             String s = INPUT3[i];
-            String[] s1 = s.split(" ");
+            String[] input = s.split(" ");
 
-            if(s1[0].equals("create")){
+            Cmd cmd = Cmd.from(input[0]);
+
+            if(cmd.isCreate()){
                 boolean created = task.create();
 
                 if(!created){
                     createFailCount.increase();
                 }
-            }else if(s1[0].equals("execute")){
-                int tag = Integer.parseInt(s1[1]);
+            }else if(cmd.isExecute()){
+                int tag = Integer.parseInt(input[1]);
 
                 boolean success = task.execute(tag);
 
