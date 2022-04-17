@@ -63,19 +63,13 @@ public class App {
         "execute 5"
     };
 
-    private static final int LIMIT = 9;
-    private static final boolean[] isUsing = new boolean[LIMIT+1];
     private static int createFailCount = 0;
 
     private static final Task task = new Task();
-
-    private static List<Integer> fails = new LinkedList<>();
-
-    private static Map<Integer, ExecuteFail> executeFails = new HashMap<>();
-
+    private static final ExecuteFailResult executeFailResult = new ExecuteFailResult();
     private static final ResultMessage resultMessage = new ResultMessage();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         for (int i = 0; i < INPUT3.length; i++) {
             String s = INPUT3[i];
@@ -93,20 +87,13 @@ public class App {
                 boolean success = task.execute(tag);
 
                 if(!success){
-                    if(executeFails.containsKey(tag)){
-                        ExecuteFail executeFail = executeFails.get(tag);
-                        executeFail.increase();
-
-                        executeFails.put(tag,executeFail);
-                    }else{
-                        executeFails.put(tag, new ExecuteFail(tag));
-                    }
+                    executeFailResult.append(tag);
                 }
             }
         }
 
         resultMessage.printUsableTag(task.getUsableTags());
         resultMessage.printCreateFail(createFailCount);
-        resultMessage.printExecuteFails(executeFails);
+        resultMessage.printExecuteFails(executeFailResult.getExecuteFails());
     }
 }
