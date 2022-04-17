@@ -63,14 +63,14 @@ public class App {
         "execute 5"
     };
 
-    private static int createFailCount = 0;
-
     private static final Task task = new Task();
+
+    private static final CreateFailCounter createFailCount = new CreateFailCounter();
     private static final ExecuteFailResult executeFailResult = new ExecuteFailResult();
+
     private static final ResultMessage resultMessage = new ResultMessage();
 
     public static void main(String[] args) {
-
         for (int i = 0; i < INPUT3.length; i++) {
             String s = INPUT3[i];
             String[] s1 = s.split(" ");
@@ -78,8 +78,8 @@ public class App {
             if(s1[0].equals("create")){
                 boolean created = task.create();
 
-                if(created == false){
-                    createFailCount+=1;
+                if(!created){
+                    createFailCount.increase();
                 }
             }else if(s1[0].equals("execute")){
                 int tag = Integer.parseInt(s1[1]);
@@ -93,7 +93,7 @@ public class App {
         }
 
         resultMessage.printUsableTag(task.getUsableTags());
-        resultMessage.printCreateFail(createFailCount);
+        resultMessage.printCreateFail(createFailCount.getCount());
         resultMessage.printExecuteFails(executeFailResult.getExecuteFails());
     }
 }
