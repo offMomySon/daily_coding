@@ -71,9 +71,7 @@ public class App {
 
     private static Map<Integer, ExecuteFail> executeFails = new HashMap<>();
 
-    private static final String usableTagFormat = "사용가능한 Tag : %s";
-    private static final String createFailFormat = "TASK 생성 실패: %d";
-    private static final String executeFailFormat = "TASK 수행 실패한 태그: %s";
+    private static final ResultMessage resultMessage = new ResultMessage();
 
     public static void main(String[] args) throws IOException {
 
@@ -119,10 +117,9 @@ public class App {
                 usableList.add(i);
             }
         }
-        System.out.println(String.format(usableTagFormat, usableList.stream().map(it-> Integer.toString(it)).collect(Collectors.joining(" "))));
-        System.out.println(String.format(createFailFormat, createFailCount));
 
-        String collect = executeFails.values().stream().sorted().map(it -> it.getNum() + "(" + it.getCount() + ")").collect(Collectors.joining(" "));
-        System.out.println(String.format(executeFailFormat,collect));
+        resultMessage.printUsableTag(usableList);
+        resultMessage.printCreateFail(createFailCount);
+        resultMessage.printExecuteFails(executeFails);
     }
 }
