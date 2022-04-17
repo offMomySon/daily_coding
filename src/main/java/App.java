@@ -1,21 +1,3 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.Buffer;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-
-
 public class App {
     private static final String[] INPUT1 = new String[] {
         "create",
@@ -92,7 +74,7 @@ public class App {
             }
         }
 
-        resultMessage.printUsableTag(task.getUsableTags());
+        resultMessage.printUsableTag(task.getTag().getUsableTags());
         resultMessage.printCreateFail(createFailCount.getCount());
         resultMessage.printExecuteFails(executeFailResult.getExecuteFails());
     }
