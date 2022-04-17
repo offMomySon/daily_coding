@@ -67,6 +67,8 @@ public class App {
     private static final boolean[] isUsing = new boolean[LIMIT+1];
     private static int createFailCount = 0;
 
+    private static final Task task = new Task();
+
     private static List<Integer> fails = new LinkedList<>();
 
     private static Map<Integer, ExecuteFail> executeFails = new HashMap<>();
@@ -80,45 +82,30 @@ public class App {
             String[] s1 = s.split(" ");
 
             if(s1[0].equals("create")){
-                boolean created = false;
-
-                for (int j = 1; j <= 9; j++) {
-                    if(!isUsing[j]){
-                        isUsing[j] = true;
-                        created = true;
-                        break;
-                    }
-                }
+                boolean created = task.create();
 
                 if(created == false){
                     createFailCount+=1;
                 }
             }else if(s1[0].equals("execute")){
-                int target = Integer.parseInt(s1[1]);
+                int tag = Integer.parseInt(s1[1]);
 
-                if(target> LIMIT || !isUsing[target]){
-                    if(executeFails.containsKey(target)){
-                        ExecuteFail executeFail = executeFails.get(target);
+                boolean success = task.execute(tag);
+
+                if(!success){
+                    if(executeFails.containsKey(tag)){
+                        ExecuteFail executeFail = executeFails.get(tag);
                         executeFail.increase();
 
-                        executeFails.put(target,executeFail );
+                        executeFails.put(tag,executeFail);
                     }else{
-                        executeFails.put(target, new ExecuteFail(target));
+                        executeFails.put(tag, new ExecuteFail(tag));
                     }
-                }else{
-                    isUsing[target] = false;
                 }
             }
         }
 
-        List<Integer> usableList = new LinkedList<>();
-        for(int i =1 ; i<=LIMIT; i++){
-            if(isUsing[i] == false){
-                usableList.add(i);
-            }
-        }
-
-        resultMessage.printUsableTag(usableList);
+        resultMessage.printUsableTag(task.getUsableTags());
         resultMessage.printCreateFail(createFailCount);
         resultMessage.printExecuteFails(executeFails);
     }
