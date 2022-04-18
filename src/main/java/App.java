@@ -52,6 +52,10 @@ public class App {
 
     private static final ResultMessage resultMessage = new ResultMessage();
 
+    private static final Tag tag = new Tag();
+    private static final TaskCreator taskCreator = new TaskCreator(tag);
+    private static final TaskExecutor taskExecutor = new TaskExecutor(tag);
+
     public static void main(String[] args) {
         for (int i = 0; i < INPUT3.length; i++) {
             Input input = Input.from(INPUT3[i]);
