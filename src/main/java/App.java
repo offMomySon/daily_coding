@@ -54,10 +54,9 @@ public class App {
 
     public static void main(String[] args) {
         for (int i = 0; i < INPUT3.length; i++) {
-            String s = INPUT3[i];
-            String[] input = s.split(" ");
+            Input input = Input.from(INPUT3[i]);
 
-            Cmd cmd = Cmd.from(input[0]);
+            Cmd cmd = input.getCmd();
 
             if(cmd.isCreate()){
                 boolean created = task.create();
@@ -66,12 +65,12 @@ public class App {
                     createFailCount.increase();
                 }
             }else if(cmd.isExecute()){
-                int tag = Integer.parseInt(input[1]);
+                int tagNum = input.getTagNum();
 
-                boolean success = task.execute(tag);
+                boolean success = task.execute(tagNum);
 
                 if(!success){
-                    executeFailResult.append(tag);
+                    executeFailResult.append(tagNum);
                 }
             }
         }
