@@ -1,9 +1,11 @@
 import java.util.Objects;
 
-public class TaskExecutor implements Tasker{
+public class TaskExecutor {
+    private final ExecuteFailLogger executeFailLogger;
     private final Tag tag;
 
-    public TaskExecutor(Tag tag) {
+    public TaskExecutor(ExecuteFailLogger executeFailLogger, Tag tag) {
+        this.executeFailLogger = executeFailLogger;
         this.tag = validate(tag);
     }
 
@@ -14,8 +16,10 @@ public class TaskExecutor implements Tasker{
         return tag;
     }
 
-    @Override
-    public boolean doAction(Input input) {
-        return tag.deleteTag(input.getTagNum());
+    public void execute(int tagNum) {
+        boolean deleted = tag.deleteTag(tagNum);
+        if(!deleted){
+            executeFailLogger.append(tagNum);
+        }
     }
 }

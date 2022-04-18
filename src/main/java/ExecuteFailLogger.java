@@ -2,7 +2,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ExecuteFailResult {
+public class ExecuteFailLogger {
     private static Map<Integer, ExecuteFail> executeFails = new HashMap<>();
 
     public void append(int tag){
