@@ -5,7 +5,7 @@ public class Tag {
     private static final int LIMIT = 9;
     private static final boolean[] usingTag = new boolean[LIMIT+1];
 
-    public boolean setTagIfPossible(){
+    public boolean createTagIfPossible(){
         for (int i = 1; i <= LIMIT; i++) {
             if(usingTag[i] == false){
                 usingTag[i] = true;
