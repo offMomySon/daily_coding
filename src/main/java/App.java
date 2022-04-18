@@ -48,39 +48,26 @@ public class App {
     private static final Task task = new Task();
 
     private static final CreateFailCounter createFailCount = new CreateFailCounter();
-    private static final ExecuteFailResult executeFailResult = new ExecuteFailResult();
+    private static final ExecuteFailLogger executeFailLogger = new ExecuteFailLogger();
 
     private static final ResultMessage resultMessage = new ResultMessage();
 
     private static final Tag tag = new Tag();
-    private static final TaskCreator taskCreator = new TaskCreator(tag);
-    private static final TaskExecutor taskExecutor = new TaskExecutor(tag);
+
+    private static final TaskCreator taskCreator = new TaskCreator(createFailCount, tag);
+    private static final TaskExecutor taskExecutor = new TaskExecutor(executeFailLogger, tag);
+
+    private static final Executor executor = new Executor(executeFailLogger, createFailCount, taskCreator, taskExecutor);
 
     public static void main(String[] args) {
         for (int i = 0; i < INPUT3.length; i++) {
             Input input = Input.from(INPUT3[i]);
 
-            Cmd cmd = input.getCmd();
-
-            if(cmd.isCreate()){
-                boolean created = task.create();
-
-                if(!created){
-                    createFailCount.increase();
-                }
-            }else if(cmd.isExecute()){
-                int tagNum = input.getTagNum();
-
-                boolean success = task.execute(tagNum);
-
-                if(!success){
-                    executeFailResult.append(tagNum);
-                }
-            }
+            executor.execute(input);
         }
 
         resultMessage.printUsableTag(task.getTag().getUsableTags());
         resultMessage.printCreateFail(createFailCount.getCount());
-        resultMessage.printExecuteFails(executeFailResult.getExecuteFails());
+        resultMessage.printExecuteFails(executeFailLogger.getExecuteFails());
     }
 }

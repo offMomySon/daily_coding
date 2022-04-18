@@ -1,9 +1,11 @@
 import java.util.Objects;
 
-public class TaskCreator implements Tasker{
+public class TaskCreator {
+    private final CreateFailCounter createFailCounter;
     private final Tag tag;
 
-    public TaskCreator(Tag tag) {
+    public TaskCreator(CreateFailCounter createFailCounter, Tag tag) {
+        this.createFailCounter = createFailCounter;
         this.tag = validate(tag);
     }
 
@@ -14,8 +16,11 @@ public class TaskCreator implements Tasker{
         return tag;
     }
 
-    @Override
-    public boolean doAction(Input input) {
-        return tag.createTagIfPossible();
+    public void create() {
+        boolean created = tag.createTagIfPossible();
+
+        if(!created){
+            createFailCounter.increase();
+        }
     }
 }
