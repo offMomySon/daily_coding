@@ -1,3 +1,5 @@
+package taskjob_1;
+
 public class CreateFailCounter {
     private static int createFailCount = 0;
 

@@ -3,7 +3,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import taskjob_1.ExecuteFail;
 
 class ExecuteFailTest {
 

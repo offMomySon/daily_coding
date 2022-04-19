@@ -1,3 +1,5 @@
+package taskjob_1;
+
 import lombok.NonNull;
 
 public class Input {

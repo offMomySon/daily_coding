@@ -1,3 +1,5 @@
+package taskjob_1;
+
 public class ExecuteFail implements Comparable<ExecuteFail>{
     private final int num;
     private int count = 1;
@@ -36,7 +38,7 @@ public class ExecuteFail implements Comparable<ExecuteFail>{
 
     @Override
     public String toString() {
-        return "ExecuteFail{" +
+        return "taskjob_1.ExecuteFail{" +
             "num=" + num +
             ", count=" + count +
             '}';
