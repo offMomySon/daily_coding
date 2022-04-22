@@ -48,6 +48,9 @@ public class App {
     };
 
     public static void main(String[] args) {
-    
+
+        TaskPool pool = TaskPool.from(Task.createSystemDefaultTasks());
+        
+
     }
 }
