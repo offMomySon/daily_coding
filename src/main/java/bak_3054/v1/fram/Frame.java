@@ -1,4 +1,4 @@
-package bak_3054.fram;
+package bak_3054.v1.fram;
 
 public interface Frame {
     String getCh();

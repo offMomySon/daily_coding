@@ -1,45 +1,56 @@
 package bak_3054;
 
-import bak_3054.pool.Pool;
-import bak_3054.pool.factory.CompositePoolFactory;
-import bak_3054.pool.factory.PeterpanFramePoolFactory;
-import bak_3054.pool.factory.WendyPoolFactory;
-import bak_3054.printer.CharacterLine;
-import bak_3054.printer.EdgeLine;
-import bak_3054.printer.Printer;
-import bak_3054.printer.SandwichLine;
-import bak_3054.printer.SequenceLinePrinter;
+import bak_3054.v2.decorate.Decoration;
+import bak_3054.v2.decorate.DecorationFactory;
+import bak_3054.v2.frame.CharactorShowLine;
+import bak_3054.v2.frame.Decorations;
+import bak_3054.v2.frame.FrameLine;
+import bak_3054.v2.frame.Line;
+import bak_3054.v2.frame.MiddleDecorateLine;
+import bak_3054.v2.frame.OneTermPeriodicalDecorateLine;
+import bak_3054.v2.printer.LinePrinter;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     private static MyReader mr = new MyReader();
 
     public static void main(String[] args) {
-
         String cmd = mr.next();
 
-        Pool pool = CompositePoolFactory.of(new WendyPoolFactory(), new PeterpanFramePoolFactory()).create(cmd);
+        DecorationFactory decorationFactory = new DecorationFactory();
+        List<Decoration> frames = decorationFactory.create(cmd.length());
+        List<Decoration> values = decorationFactory.create(cmd);
 
 
-        // 배수가 변화 가능하다.
-        // input 이 변할 수 있다.
-        // 프레인이 추가 될 수 있다.
-        // 순서가 변할 수 있다.
-        Printer printer = new SequenceLinePrinter.Builder()
-            .nextPrinter(new EdgeLine())
-            .nextPrinter(new SandwichLine())
-            .nextPrinter(new CharacterLine())
-            .nextPrinter(new SandwichLine())
-            .nextPrinter(new EdgeLine())
-            .build();
+        Decorations decorations = new Decorations(frames);
 
-        printer.print(cmd, pool);
+        List<FrameLine> middleDecorateLines = IntStream.range(0, cmd.length())
+            .mapToObj(index -> MiddleDecorateLine.from(frames.get(index)))
+            .collect(Collectors.toList());
+        List<FrameLine> oneTermPeriodicalDecorateLine = IntStream.range(0, cmd.length())
+            .mapToObj(index -> OneTermPeriodicalDecorateLine.from(frames.get(index)))
+            .collect(Collectors.toList());
+        List<FrameLine> charactorShowLines = IntStream.range(0, cmd.length())
+            .mapToObj(index -> CharactorShowLine.from(frames.get(index), values.get(index)))
+            .collect(Collectors.toList());
+
+        Line mergedMiddleLine = decorations.merge(middleDecorateLines);
+        Line mergedOneTermLine = decorations.merge(oneTermPeriodicalDecorateLine);
+        Line mergedCharShowLine = decorations.merge(charactorShowLines);
+
+        LinePrinter linePrinter = new LinePrinter(
+            List.of(mergedMiddleLine, mergedOneTermLine, mergedCharShowLine, mergedOneTermLine, mergedMiddleLine));
+        linePrinter.print();
+
     }
 
     public static class MyReader {
