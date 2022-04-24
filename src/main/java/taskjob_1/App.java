@@ -1,7 +1,7 @@
 package taskjob_1;
 
 public class App {
-    private static final String[] INPUT1 = new String[] {
+    private static final String[] INPUT1 = new String[]{
         "create",
         "create",
         "create",
@@ -10,7 +10,7 @@ public class App {
         "execute 2"
     };
 
-    private static final String[] INPUT2 = new String[] {
+    private static final String[] INPUT2 = new String[]{
         "create",
         "create",
         "create",
@@ -23,7 +23,7 @@ public class App {
         "create"
     };
 
-    private static final String[] INPUT3 = new String[] {
+    private static final String[] INPUT3 = new String[]{
         "create",
         "create",
         "create",
