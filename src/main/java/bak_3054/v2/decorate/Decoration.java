@@ -3,8 +3,9 @@ package bak_3054.v2.decorate;
 import lombok.NonNull;
 
 public class Decoration implements Comparable<Decoration> {
-    public static final Decoration wendy = highPriority("*");
-    public static final Decoration piterpan = lowPriority("#");
+    public static final Decoration BLANK = new Decoration(".", -1);
+    public static final Decoration wendy = new Decoration("*", 2);
+    public static final Decoration piterpan = new Decoration("#", 1);
 
     private final String value;
     private final int priority;
@@ -14,24 +15,20 @@ public class Decoration implements Comparable<Decoration> {
         this.priority = priority;
     }
 
-    public static Decoration highPriority(String value) {
-        return new Decoration(value, 2);
-    }
-
-    public static Decoration lowPriority(String value) {
-        return new Decoration(value, 1);
+    public static Decoration text(char value) {
+        return new Decoration(String.valueOf(value), 3);
     }
 
     public String getValue() {
         return value;
     }
 
-    public int getPriority() {
-        return priority;
-    }
-
     @Override
     public int compareTo(Decoration o) {
-        return Integer.compare(this.priority, o.getPriority());
+        return Integer.compare(this.priority, o.priority);
+    }
+
+    public String toString() {
+        return value;
     }
 }

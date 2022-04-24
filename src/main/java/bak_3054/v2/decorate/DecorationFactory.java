@@ -18,8 +18,7 @@ public class DecorationFactory {
 
     public List<Decoration> create(String str) {
         return IntStream.range(0, str.length())
-            .mapToObj(index -> (index + 1) % 3 == 0 ? Decoration.highPriority(
-                str.charAt(index) + "") : Decoration.lowPriority(str.charAt(index) + ""))
+            .mapToObj(index -> Decoration.text(str.charAt(index)))
             .collect(Collectors.toList());
     }
 
