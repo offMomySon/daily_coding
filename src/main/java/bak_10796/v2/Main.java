@@ -1,7 +1,4 @@
-package bak_10796;
-
-import java.util.LinkedList;
-import java.util.List;
+package bak_10796.v2;
 
 public class Main {
 
@@ -20,18 +17,20 @@ public class Main {
         "P5h3kx"
     };
 
-    private static List<List<String>> columns  = new LinkedList<>();
 
     public static void main(String[] args) {
-        Columns columns = new Columns();
-
+        Lines.Builder builder = new Lines.Builder();
         for(String line : INPUT2){
-            Line row = Line.of(line);
-            columns.add(row);
+            builder.line(line);
         }
+        Lines lines = builder.build();
 
-        Line row = columns.createRow();
+        StringBuilder sb = new StringBuilder();
+        for (int col = 0; col < lines.getMaxLength(); col++) {
+            sb.append(lines.columnLineAt(col));
+        }
+        String appendedColumn = sb.toString();
 
-        System.out.println(row);
+        System.out.println(appendedColumn);
     }
 }
