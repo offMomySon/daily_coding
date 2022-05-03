@@ -1,5 +1,6 @@
 package bak_10796;
 
+import bak_10796.v1.Columns;
 import org.junit.jupiter.api.Test;
 
 class ColumnsTest {
