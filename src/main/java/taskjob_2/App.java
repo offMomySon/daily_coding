@@ -1,9 +1,14 @@
 package taskjob_2;
 
-import java.util.List;
+
+import java.util.Map;
+import taskjob_1.v3.command.Command;
+import taskjob_2.result.CreateFailResult;
+import taskjob_2.result.ExecuteFailResult;
+import taskjob_2.result.UsableTagResult;
 
 public class App {
-    private static final String[] testCmdSheet1= {
+    private static final String[] TEST_CMD_SHEET_1= {
         "create",
         "create",
         "create",
@@ -12,29 +17,86 @@ public class App {
         "execute 2"
     };
 
+    private static final String[] TEST_CMD_SHEET_2= {
+        "create",
+        "create",
+        "create",
+        "create",
+        "create",
+        "create",
+        "create",
+        "create",
+        "create",
+        "create"
+    };
+
+    private static final String[] TEST_CMD_SHEET_3= {
+        "create",
+        "create",
+        "create",
+        "create",
+        "execute 11",
+        "create",
+        "create",
+        "create",
+        "create",
+        "create",
+        "create",
+        "execute 2",
+        "create",
+        "execute 2",
+        "execute 11",
+        "execute 2",
+        "execute 5",
+        "execute 5",
+        "execute 2",
+        "execute 5",
+        "execute 5"
+    };
+
     public static void main(String[] args) {
         TreeTaskPool usablePool = TreeTaskPool.of(Task.defaultSystemTasks());
         HashTaskPool executePool = new HashTaskPool();
 
-        for(String sCmd : testCmdSheet1){
+        Counter createFailCounter = new Counter();
+        TaskCounter executeFailCounter = new TaskCounter();
+
+        for(String sCmd : TEST_CMD_SHEET_3){
             String[] splitCmd = sCmd.split(" ");
 
             Cmd cmd = Cmd.find(splitCmd[0]).orElseThrow(() -> new RuntimeException("일치하는 cmd 가 없습니다."));
 
             if(cmd == Cmd.CREATE){
+                if(usablePool.notExist()){
+                    createFailCounter.increase();
+                    continue;
+                }
                 Task task = usablePool.pull();
                 executePool.add(task);
-                break;
+                continue;
             }
 
             if( cmd == Cmd.EXECUTE){
                 Task task = Task.of(splitCmd[1]);
+
+                if(executePool.notExist(task)){
+                    executeFailCounter.increase(task);
+                    continue;
+                }
+
                 executePool.remove(task);
                 usablePool.add(task);
-                break;
+                continue;
             }
-
         }
+
+        UsableTagResult usableTagResult = new UsableTagResult(usablePool.getTasksAsView());
+        CreateFailResult createFailResult = new CreateFailResult(createFailCounter);
+        ExecuteFailResult executeFailResult = ExecuteFailResult.from(executeFailCounter.getTaskCountAsView());
+
+        usableTagResult.print();
+        createFailResult.print();
+        executeFailResult.print();
 
     }
 }

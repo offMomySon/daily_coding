@@ -15,10 +15,13 @@ public class HashTaskPool {
         pool.addAll(List.of(task));
     }
 
-    public boolean isExist(@NonNull Task task){
+    private boolean isExist(@NonNull Task task){
         return pool.contains(task);
     }
 
+    public boolean notExist(@NonNull Task task){
+        return !isExist(task);
+    }
     public void remove(@NonNull Task task){
         pool.remove(task);
     }
