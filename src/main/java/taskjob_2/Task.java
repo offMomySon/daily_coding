@@ -5,11 +5,12 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * task 요구사항을 추상화한 데이터 역할.
  */
-public class Task {
+public class Task implements Comparable<Task>{
     private final int value;
 
     private Task(int value) {
@@ -38,5 +39,14 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    public int getTag() {
+        return value;
+    }
+
+    @Override
+    public int compareTo(@NotNull Task o) {
+        return value - o.value;
     }
 }

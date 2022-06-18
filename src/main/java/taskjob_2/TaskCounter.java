@@ -9,4 +9,16 @@ import java.util.Map;
 public class TaskCounter {
     private final Map<Task, Integer> value = new HashMap<>();
 
+    public void increase(Task task){
+        if(value.containsKey(task)){
+            value.put(task, value.get(task) + 1);
+            return;
+        }
+
+        value.put(task, 1);
+    }
+
+    public Map<Task, Integer> getTaskCountAsView(){
+        return new HashMap<>(value);
+    }
 }

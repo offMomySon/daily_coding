@@ -1,5 +1,6 @@
 package taskjob_2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
@@ -21,11 +22,22 @@ public class TreeTaskPool {
         return new TreeTaskPool(pool);
     }
 
+    private boolean isExist(){
+        return !pool.isEmpty();
+    }
+    public boolean notExist(){
+        return !isExist();
+    }
+
     public void add(Task ... tasks){
         pool.addAll(Arrays.asList(tasks));
     }
 
     public Task pull(){
         return pool.pollFirst();
+    }
+
+    public List<Task> getTasksAsView(){
+        return new ArrayList<>(pool);
     }
 }
