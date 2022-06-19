@@ -2,11 +2,14 @@ package taskjob_2;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Set;
+import taskjob_2.aggregator.Counter;
+import taskjob_2.aggregator.TaskCounter;
 import taskjob_2.command.Command;
 import taskjob_2.command.CommandFactory;
-import taskjob_2.pool.HashTaskPool;
 import taskjob_2.result.CompositeResult;
 import taskjob_2.result.CreateFailResult;
 import taskjob_2.result.ExecuteFailResult;
@@ -61,7 +64,7 @@ public class App {
 
     public static void main(String[] args) {
         PriorityQueue<Task> usablePool = new PriorityQueue<>(Task.defaultSystemTasks());
-        HashTaskPool executablePool = new HashTaskPool();
+        Set<Task> executablePool = new HashSet<>();
 
         Counter createFailCounter = new Counter();
         TaskCounter executeFailCounter = new TaskCounter();

@@ -1,7 +1,8 @@
-package taskjob_2;
+package taskjob_2.aggregator;
 
 import java.util.HashMap;
 import java.util.Map;
+import taskjob_2.Task;
 
 /**
  * task 마다의 횟수를 관리하는 역할.

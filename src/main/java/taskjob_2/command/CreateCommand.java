@@ -1,11 +1,10 @@
 package taskjob_2.command;
 
 import java.util.PriorityQueue;
+import java.util.Set;
 import lombok.NonNull;
-import taskjob_2.Counter;
-import taskjob_2.pool.HashTaskPool;
+import taskjob_2.aggregator.Counter;
 import taskjob_2.Task;
-import taskjob_2.pool.TreeTaskPool;
 
 public class CreateCommand implements Command{
 
@@ -16,13 +15,13 @@ public class CreateCommand implements Command{
     }
 
     @Override
-    public void execute(@NonNull PriorityQueue<Task> usablePool, @NonNull HashTaskPool executePool) {
+    public void execute(@NonNull PriorityQueue<Task> usablePool, @NonNull Set<Task> executePool) {
         if(usablePool.isEmpty()){
             failCounter.increase();
             return;
         }
 
         Task task = usablePool.poll();
-        executePool.push(task);
+        executePool.add(task);
     }
 }
