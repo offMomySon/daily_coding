@@ -2,6 +2,8 @@ package taskjob_2;
 
 
 import java.util.List;
+import taskjob_2.command.Command;
+import taskjob_2.command.CommandFactory;
 import taskjob_2.result.CompositeResult;
 import taskjob_2.result.CreateFailResult;
 import taskjob_2.result.ExecuteFailResult;
@@ -61,33 +63,11 @@ public class App {
         Counter createFailCounter = new Counter();
         TaskCounter executeFailCounter = new TaskCounter();
 
-        for(String sCmd : TEST_CMD_SHEET_3){
-            String[] splitCmd = sCmd.split(" ");
+        CommandFactory commandFactory = new CommandFactory(createFailCounter, executeFailCounter);
 
-            Cmd cmd = Cmd.find(splitCmd[0]).orElseThrow(() -> new RuntimeException("일치하는 cmd 가 없습니다."));
-
-            if(cmd == Cmd.CREATE){
-                if(usablePool.notLeft()){
-                    createFailCounter.increase();
-                    continue;
-                }
-                Task task = usablePool.pull();
-                executablePool.push(task);
-                continue;
-            }
-
-            if( cmd == Cmd.EXECUTE){
-                Task task = Task.of(splitCmd[1]);
-
-                if(executablePool.notExist(task)){
-                    executeFailCounter.increase(task);
-                    continue;
-                }
-
-                executablePool.get(task);
-                usablePool.add(task);
-                continue;
-            }
+        for(String sCmd : TEST_CMD_SHEET_1){
+            Command command = commandFactory.create(sCmd);
+            command.execute(usablePool, executablePool);
         }
 
         CompositeResult resultPrinter = new CompositeResult(List.of(
