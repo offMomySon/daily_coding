@@ -18,13 +18,13 @@ public class CreateCommand implements Command{
     }
 
     @Override
-    public void execute(@NonNull PriorityQueue<Task> usablePool, @NonNull Set<Task> executePool) {
+    public void execute(@NonNull PriorityQueue<Task> usablePool, @NonNull Set<Task> executablePool) {
         if(usablePool.isEmpty()){
             failCounter.increase();
             return;
         }
 
         Task task = usablePool.poll();
-        executePool.add(task);
+        executablePool.add(task);
     }
 }
