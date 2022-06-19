@@ -11,7 +11,7 @@ import lombok.NonNull;
 public class HashTaskPool {
     private final Set<Task> pool = new HashSet<>();
 
-    public void add(Task ...task){
+    public void push(Task ...task){
         pool.addAll(List.of(task));
     }
 
@@ -22,7 +22,11 @@ public class HashTaskPool {
     public boolean notExist(@NonNull Task task){
         return !isExist(task);
     }
-    public void remove(@NonNull Task task){
-        pool.remove(task);
+    public Task get(@NonNull Task task){
+        if(!pool.remove(task)){
+            throw new RuntimeException("Not exist task");
+        }
+
+        return task;
     }
 }
