@@ -22,11 +22,11 @@ public class TreeTaskPool {
         return new TreeTaskPool(pool);
     }
 
-    private boolean isExist(){
+    private boolean isLeft(){
         return !pool.isEmpty();
     }
-    public boolean notExist(){
-        return !isExist();
+    public boolean notLeft(){
+        return !isLeft();
     }
 
     public void add(Task ... tasks){

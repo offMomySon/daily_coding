@@ -2,8 +2,6 @@ package taskjob_2;
 
 
 import java.util.List;
-import java.util.Map;
-import taskjob_1.v3.command.Command;
 import taskjob_2.result.CompositeResult;
 import taskjob_2.result.CreateFailResult;
 import taskjob_2.result.ExecuteFailResult;
@@ -58,7 +56,7 @@ public class App {
 
     public static void main(String[] args) {
         TreeTaskPool usablePool = TreeTaskPool.of(Task.defaultSystemTasks());
-        HashTaskPool executePool = new HashTaskPool();
+        HashTaskPool executablePool = new HashTaskPool();
 
         Counter createFailCounter = new Counter();
         TaskCounter executeFailCounter = new TaskCounter();
@@ -69,24 +67,24 @@ public class App {
             Cmd cmd = Cmd.find(splitCmd[0]).orElseThrow(() -> new RuntimeException("일치하는 cmd 가 없습니다."));
 
             if(cmd == Cmd.CREATE){
-                if(usablePool.notExist()){
+                if(usablePool.notLeft()){
                     createFailCounter.increase();
                     continue;
                 }
                 Task task = usablePool.pull();
-                executePool.add(task);
+                executablePool.push(task);
                 continue;
             }
 
             if( cmd == Cmd.EXECUTE){
                 Task task = Task.of(splitCmd[1]);
 
-                if(executePool.notExist(task)){
+                if(executablePool.notExist(task)){
                     executeFailCounter.increase(task);
                     continue;
                 }
 
-                executePool.remove(task);
+                executablePool.get(task);
                 usablePool.add(task);
                 continue;
             }
