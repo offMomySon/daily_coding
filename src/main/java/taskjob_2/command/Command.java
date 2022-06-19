@@ -14,5 +14,5 @@ import taskjob_2.Task;
  * 데이터에 따른 행위를 하나로 일치 시켰다.
  */
 public interface Command {
-    void execute(@NonNull PriorityQueue<Task> usablePool, @NonNull Set<Task> executePool);
+    void execute(@NonNull PriorityQueue<Task> usablePool, @NonNull Set<Task> executablePool);
 }
