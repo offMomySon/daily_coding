@@ -78,8 +78,8 @@ public class App {
 
         CompositeResult resultPrinter = new CompositeResult(List.of(
             new UsableTagResult(new ArrayList<>(usablePool)),
-            new CreateFailResult(createFailCounter),
-            ExecuteFailResult.from(executeFailCounter.getTaskCountAsView())));
+            new CreateFailResult(createFailCounter.getValueAsView()),
+            ExecuteFailResult.from(executeFailCounter.getTaskCounts())));
 
         resultPrinter.print();
     }
