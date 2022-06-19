@@ -15,17 +15,4 @@ public class TaskCount{
         this.task = task;
         this.count = count;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TaskCount taskCount = (TaskCount) o;
-        return count == taskCount.count && Objects.equals(task, taskCount.task);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(count, task);
-    }
 }
