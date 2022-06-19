@@ -1,9 +1,12 @@
 package taskjob_2;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 import taskjob_2.command.Command;
 import taskjob_2.command.CommandFactory;
+import taskjob_2.pool.HashTaskPool;
 import taskjob_2.result.CompositeResult;
 import taskjob_2.result.CreateFailResult;
 import taskjob_2.result.ExecuteFailResult;
@@ -57,7 +60,7 @@ public class App {
     };
 
     public static void main(String[] args) {
-        TreeTaskPool usablePool = TreeTaskPool.of(Task.defaultSystemTasks());
+        PriorityQueue<Task> usablePool = new PriorityQueue<>(Task.defaultSystemTasks());
         HashTaskPool executablePool = new HashTaskPool();
 
         Counter createFailCounter = new Counter();
@@ -65,13 +68,13 @@ public class App {
 
         CommandFactory commandFactory = new CommandFactory(createFailCounter, executeFailCounter);
 
-        for(String sCmd : TEST_CMD_SHEET_1){
+        for(String sCmd : TEST_CMD_SHEET_3){
             Command command = commandFactory.create(sCmd);
             command.execute(usablePool, executablePool);
         }
 
         CompositeResult resultPrinter = new CompositeResult(List.of(
-            new UsableTagResult(usablePool.getTasksAsView()),
+            new UsableTagResult(new ArrayList<>(usablePool)),
             new CreateFailResult(createFailCounter),
             ExecuteFailResult.from(executeFailCounter.getTaskCountAsView())));
 

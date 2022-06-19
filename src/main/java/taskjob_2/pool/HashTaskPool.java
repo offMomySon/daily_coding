@@ -1,9 +1,10 @@
-package taskjob_2;
+package taskjob_2.pool;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.NonNull;
+import taskjob_2.Task;
 
 /**
  * task 를 관리하는 역할.

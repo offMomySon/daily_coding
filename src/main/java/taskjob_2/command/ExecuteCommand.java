@@ -1,10 +1,11 @@
 package taskjob_2.command;
 
+import java.util.PriorityQueue;
 import lombok.NonNull;
-import taskjob_2.HashTaskPool;
+import taskjob_2.pool.HashTaskPool;
 import taskjob_2.Task;
 import taskjob_2.TaskCounter;
-import taskjob_2.TreeTaskPool;
+import taskjob_2.pool.TreeTaskPool;
 
 public class ExecuteCommand implements Command{
     private final TaskCounter failTaskCounter;
@@ -16,7 +17,7 @@ public class ExecuteCommand implements Command{
     }
 
     @Override
-    public void execute(@NonNull TreeTaskPool usablePool, @NonNull HashTaskPool executablePool) {
+    public void execute(@NonNull PriorityQueue<Task> usablePool, @NonNull HashTaskPool executablePool) {
         if(executablePool.notExist(task)){
             failTaskCounter.increase(task);
             return;
