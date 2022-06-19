@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 import lombok.NonNull;
 import taskjob_2.Task;
 
+/**
+ * 사용가능한 tag 를 출력하기 위한 역할.
+ */
 public class UsableTagResult implements ResultPrinter {
     private final List<Task> values;
 

@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 입력 받는 cmd 를 제한하기 위한 역할.
+ * 입력 받는 cmd 를 명시적으로 지정하기 위한 역할.
  */
 public enum Cmd {
     CREATE("CREATE"), EXECUTE("EXECUTE");

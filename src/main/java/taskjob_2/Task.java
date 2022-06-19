@@ -8,7 +8,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * task 요구사항을 추상화한 데이터 역할.
+ * task 요구사항을 추상화한 데이터 성격의 도메인 객체.
  */
 public class Task implements Comparable<Task>{
     private final int value;

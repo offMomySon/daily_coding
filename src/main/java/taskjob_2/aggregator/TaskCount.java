@@ -1,4 +1,4 @@
-package taskjob_2.result;
+package taskjob_2.aggregator;
 
 import java.util.Objects;
 import lombok.Getter;
@@ -7,11 +7,11 @@ import org.jetbrains.annotations.NotNull;
 import taskjob_2.Task;
 
 @Getter
-public class FailTask implements Comparable<FailTask>{
+public class TaskCount implements Comparable<TaskCount>{
     private final Task task;
     private final int count;
 
-    public FailTask(@NonNull Task task, int count) {
+    public TaskCount(@NonNull Task task, int count) {
         this.task = task;
         this.count = count;
     }
@@ -20,8 +20,8 @@ public class FailTask implements Comparable<FailTask>{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FailTask failTask = (FailTask) o;
-        return count == failTask.count && Objects.equals(task, failTask.task);
+        TaskCount taskCount = (TaskCount) o;
+        return count == taskCount.count && Objects.equals(task, taskCount.task);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class FailTask implements Comparable<FailTask>{
     }
 
     @Override
-    public int compareTo(@NotNull FailTask o) {
+    public int compareTo(@NotNull TaskCount o) {
         if(count == o.count){
             return task.getTag() - o.task.getTag();
         }

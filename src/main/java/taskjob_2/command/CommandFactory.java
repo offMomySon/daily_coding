@@ -5,6 +5,12 @@ import taskjob_2.aggregator.Counter;
 import taskjob_2.Task;
 import taskjob_2.aggregator.TaskCounter;
 
+/**
+ * command 객체를 생성하는 역할. ( 당연한 이야기 이지만, 생성의 책임을 지니고 있다. )
+ *
+ * string command 의 데이터로 부터,
+ * 동일한 interface 의 command 객체들을 생성하는 역할.
+ */
 public class CommandFactory {
     private static final String CMD_DELIMITER = " ";
 

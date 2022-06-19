@@ -10,7 +10,7 @@ public class Counter {
         value++;
     }
 
-    public int getValue(){
+    public int getValueAsView(){
         return value;
     }
 }

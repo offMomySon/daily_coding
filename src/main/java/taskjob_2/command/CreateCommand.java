@@ -6,6 +6,9 @@ import lombok.NonNull;
 import taskjob_2.aggregator.Counter;
 import taskjob_2.Task;
 
+/**
+ * create command 가 수행해야하는 책임을 가진 객체.
+ */
 public class CreateCommand implements Command{
 
     private final Counter failCounter;
