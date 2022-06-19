@@ -1,9 +1,13 @@
 package taskjob_2.result;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 import taskjob_2.aggregator.TaskCount;
 
 /**
@@ -17,11 +21,11 @@ public class ExecuteFailResult implements ResultPrinter {
     }
 
     public static ExecuteFailResult from(@NonNull List<TaskCount> taskCounts){
-        List<TaskCount> collect = taskCounts.stream()
-            .sorted()
-            .collect(Collectors.toUnmodifiableList());
+        List<TaskCount> newTaskCounts = new ArrayList<>(taskCounts);
 
-        return new ExecuteFailResult(collect);
+        newTaskCounts.sort(new TaskCounterComparator());
+
+        return new ExecuteFailResult(newTaskCounts);
     }
 
     @Override
@@ -32,7 +36,18 @@ public class ExecuteFailResult implements ResultPrinter {
 
     private String getFailTaskResult(){
         return value.stream()
-            .map(ft-> MessageFormat.format("{0}({1})",ft.getCount(), ft.getTask().getTag()))
+            .map(ft-> MessageFormat.format("{0}({1})",ft.getTask().getTag(), ft.getCount()))
             .collect(Collectors.joining(" "));
+    }
+
+    private static class TaskCounterComparator implements Comparator<TaskCount>{
+        @Override
+        public int compare(TaskCount o1, TaskCount o2) {
+            if(o1.getCount() == o2.getCount()){
+                return o1.getTask().getTag() - o2.getTask().getTag();
+            }
+
+            return o2.getCount() - o1.getCount();
+        }
     }
 }

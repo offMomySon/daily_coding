@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import taskjob_2.Task;
 
 @Getter
-public class TaskCount implements Comparable<TaskCount>{
+public class TaskCount{
     private final Task task;
     private final int count;
 
@@ -27,13 +27,5 @@ public class TaskCount implements Comparable<TaskCount>{
     @Override
     public int hashCode() {
         return Objects.hash(count, task);
-    }
-
-    @Override
-    public int compareTo(@NotNull TaskCount o) {
-        if(count == o.count){
-            return task.getTag() - o.task.getTag();
-        }
-        return o.count - count;
     }
 }
