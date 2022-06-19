@@ -1,9 +1,9 @@
 package taskjob_2.command;
 
 import lombok.NonNull;
-import taskjob_2.Counter;
+import taskjob_2.aggregator.Counter;
 import taskjob_2.Task;
-import taskjob_2.TaskCounter;
+import taskjob_2.aggregator.TaskCounter;
 
 public class CommandFactory {
     private static final String CMD_DELIMITER = " ";

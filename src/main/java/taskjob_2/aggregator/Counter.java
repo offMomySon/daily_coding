@@ -1,4 +1,4 @@
-package taskjob_2;
+package taskjob_2.aggregator;
 
 /**
  * 특정 횟수를 세는 역할

@@ -2,7 +2,7 @@ package taskjob_2.result;
 
 import java.text.MessageFormat;
 import lombok.NonNull;
-import taskjob_2.Counter;
+import taskjob_2.aggregator.Counter;
 
 public class CreateFailResult implements ResultPrinter {
     private final Counter counter;
