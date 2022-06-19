@@ -1,8 +1,10 @@
 package taskjob_2;
 
 
+import java.util.List;
 import java.util.Map;
 import taskjob_1.v3.command.Command;
+import taskjob_2.result.CompositeResult;
 import taskjob_2.result.CreateFailResult;
 import taskjob_2.result.ExecuteFailResult;
 import taskjob_2.result.UsableTagResult;
@@ -90,13 +92,11 @@ public class App {
             }
         }
 
-        UsableTagResult usableTagResult = new UsableTagResult(usablePool.getTasksAsView());
-        CreateFailResult createFailResult = new CreateFailResult(createFailCounter);
-        ExecuteFailResult executeFailResult = ExecuteFailResult.from(executeFailCounter.getTaskCountAsView());
+        CompositeResult resultPrinter = new CompositeResult(List.of(
+            new UsableTagResult(usablePool.getTasksAsView()),
+            new CreateFailResult(createFailCounter),
+            ExecuteFailResult.from(executeFailCounter.getTaskCountAsView())));
 
-        usableTagResult.print();
-        createFailResult.print();
-        executeFailResult.print();
-
+        resultPrinter.print();
     }
 }
