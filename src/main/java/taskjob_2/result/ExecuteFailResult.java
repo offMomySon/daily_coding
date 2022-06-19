@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.NonNull;
-import taskjob_2.FailTask;
 import taskjob_2.Task;
 
 public class ExecuteFailResult implements ResultPrinter {

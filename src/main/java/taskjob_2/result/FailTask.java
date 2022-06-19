@@ -1,9 +1,10 @@
-package taskjob_2;
+package taskjob_2.result;
 
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
+import taskjob_2.Task;
 
 @Getter
 public class FailTask implements Comparable<FailTask>{
