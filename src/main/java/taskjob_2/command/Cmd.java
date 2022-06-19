@@ -1,4 +1,4 @@
-package taskjob_2;
+package taskjob_2.command;
 
 import java.util.Arrays;
 import java.util.Optional;
