@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.NonNull;
 import taskjob_2.Task;
-import taskjob_2.pool.UsableTaskPool;
 
 /**
  * 사용가능한 tag 를 출력하기 위한 역할.
