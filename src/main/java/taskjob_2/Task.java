@@ -49,4 +49,11 @@ public class Task implements Comparable<Task>{
     public int compareTo(@NotNull Task o) {
         return value - o.value;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+            "value=" + value +
+            '}';
+    }
 }
