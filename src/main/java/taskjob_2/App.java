@@ -1,11 +1,7 @@
 package taskjob_2;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Set;
 import taskjob_2.aggregator.Counter;
 import taskjob_2.aggregator.TaskCounter;
 import taskjob_2.command.Command;
@@ -73,15 +69,15 @@ public class App {
 
         CommandFactory commandFactory = new CommandFactory(createFailCounter, executeFailCounter);
 
-        for(String sCmd : TEST_CMD_SHEET_3){
+        for(String sCmd : TEST_CMD_SHEET_1){
             Command command = commandFactory.create(sCmd);
             command.execute(usableTaskPool, executableTaskPool);
         }
 
         CompositeResult resultPrinter = new CompositeResult(List.of(
             new UsableTagResult(usableTaskPool.getTasks()),
-            new CreateFailResult(createFailCounter.getValueAsView()),
-            ExecuteFailResult.from(executeFailCounter.getTaskCountsAsView())));
+            CreateFailResult.from(createFailCounter),
+            ExecuteFailResult.from(executeFailCounter.getTaskCounts())));
 
         resultPrinter.print();
     }

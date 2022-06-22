@@ -25,8 +25,7 @@ public class UsableTagResult implements ResultPrinter {
 
     private String tagResult(){
         return values.stream()
-            .map(Task::getTag)
-            .map(tagNum -> Integer.toString(tagNum))
+            .map(Task::getTagAsView)
             .collect(Collectors.joining(" "));
     }
 }

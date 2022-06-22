@@ -8,10 +8,16 @@ import taskjob_2.aggregator.Counter;
  * 생성 실패 횟수를 출력하는 역할.
  */
 public class CreateFailResult implements ResultPrinter {
-    private final int count;
+    private final String count;
 
-    public CreateFailResult(int count) {
+    private CreateFailResult(@NonNull String count) {
         this.count = count;
+    }
+
+    public static CreateFailResult from(@NonNull Counter counter){
+        String count = counter.getValueAsView();
+
+        return new CreateFailResult(count);
     }
 
     @Override
