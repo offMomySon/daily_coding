@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.NonNull;
+import org.apache.commons.lang3.compare.ComparableUtils;
 import org.jetbrains.annotations.NotNull;
 import taskjob_2.aggregator.TaskCount;
 
@@ -36,7 +37,7 @@ public class ExecuteFailResult implements ResultPrinter {
 
     private String getFailTaskResult(){
         return value.stream()
-            .map(ft-> MessageFormat.format("{0}({1})",ft.getTask().getTag(), ft.getCount()))
+            .map(ft-> MessageFormat.format("{0}({1})",ft.getTask().getTagAsView(), ft.getCount()))
             .collect(Collectors.joining(" "));
     }
 
@@ -44,7 +45,7 @@ public class ExecuteFailResult implements ResultPrinter {
         @Override
         public int compare(TaskCount o1, TaskCount o2) {
             if(o1.getCount() == o2.getCount()){
-                return o1.getTask().getTag() - o2.getTask().getTag();
+                return o1.getTask().compareTo(o2.getTask());
             }
 
             return o2.getCount() - o1.getCount();

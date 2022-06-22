@@ -41,8 +41,8 @@ public class Task implements Comparable<Task>{
         return Objects.hash(value);
     }
 
-    public int getTag() {
-        return value;
+    public String getTagAsView() {
+        return Integer.toString(value);
     }
 
     @Override

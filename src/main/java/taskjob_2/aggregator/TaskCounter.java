@@ -21,7 +21,7 @@ public class TaskCounter {
         value.put(task, 1);
     }
 
-    public List<TaskCount> getTaskCountsAsView(){
+    public List<TaskCount> getTaskCounts(){
         return value.entrySet().stream()
             .map(entry -> new TaskCount(entry.getKey(), entry.getValue()))
             .collect(Collectors.toUnmodifiableList());
