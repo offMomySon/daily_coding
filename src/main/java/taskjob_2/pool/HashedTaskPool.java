@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 import taskjob_2.Task;
 
-public class ExecutableTaskPool {
+public class HashedTaskPool {
     private final Set<Task> pool = new HashSet<>();
 
     public void add(Task ...tasks){

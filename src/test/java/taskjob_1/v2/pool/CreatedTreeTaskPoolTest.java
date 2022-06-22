@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import taskjob_1.v2.domain.Task;
 import static org.junit.jupiter.api.Assertions.*;
 
-class CreatedTreeUsableTaskPoolTest {
+class CreatedTreeTaskPoolTest {
 
     @Test
     void test1(){

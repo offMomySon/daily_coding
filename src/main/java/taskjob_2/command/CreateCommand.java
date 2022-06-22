@@ -1,11 +1,10 @@
 package taskjob_2.command;
 
-import java.util.Set;
 import lombok.NonNull;
 import taskjob_2.aggregator.Counter;
 import taskjob_2.Task;
-import taskjob_2.pool.ExecutableTaskPool;
-import taskjob_2.pool.UsableTaskPool;
+import taskjob_2.pool.HashedTaskPool;
+import taskjob_2.pool.TaskPool;
 
 /**
  * create command 가 수행해야하는 책임을 가진 객체.
@@ -19,7 +18,7 @@ public class CreateCommand implements Command{
     }
 
     @Override
-    public void execute(@NonNull UsableTaskPool usablePool, @NonNull ExecutableTaskPool executablePool) {
+    public void execute(@NonNull TaskPool usablePool, @NonNull HashedTaskPool executablePool) {
         if(usablePool.notLeft()){
             failCounter.increase();
             return;
