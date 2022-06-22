@@ -13,7 +13,7 @@ public class ExecutableTaskPool {
     }
 
     public void remove(Task task){
-        if(contains(task)){
+        if(notContains(task)){
             return;
         }
 

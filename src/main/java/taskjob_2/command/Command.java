@@ -4,6 +4,8 @@ import java.util.PriorityQueue;
 import java.util.Set;
 import lombok.NonNull;
 import taskjob_2.Task;
+import taskjob_2.pool.ExecutableTaskPool;
+import taskjob_2.pool.UsableTaskPool;
 
 /**
  * command 의 행위를 추상화한 역할.
@@ -14,5 +16,5 @@ import taskjob_2.Task;
  * 데이터에 따른 행위를 하나로 일치 시켰다.
  */
 public interface Command {
-    void execute(@NonNull PriorityQueue<Task> usablePool, @NonNull Set<Task> executablePool);
+    void execute(@NonNull UsableTaskPool usablePool, @NonNull ExecutableTaskPool executablePool);
 }

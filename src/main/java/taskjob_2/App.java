@@ -10,6 +10,8 @@ import taskjob_2.aggregator.Counter;
 import taskjob_2.aggregator.TaskCounter;
 import taskjob_2.command.Command;
 import taskjob_2.command.CommandFactory;
+import taskjob_2.pool.ExecutableTaskPool;
+import taskjob_2.pool.UsableTaskPool;
 import taskjob_2.result.CompositeResult;
 import taskjob_2.result.CreateFailResult;
 import taskjob_2.result.ExecuteFailResult;
@@ -63,8 +65,8 @@ public class App {
     };
 
     public static void main(String[] args) {
-        PriorityQueue<Task> usablePool = new PriorityQueue<>(Task.defaultSystemTasks());
-        Set<Task> executablePool = new HashSet<>();
+        UsableTaskPool usableTaskPool = new UsableTaskPool(Task.defaultSystemTasks());
+        ExecutableTaskPool executableTaskPool = new ExecutableTaskPool();
 
         Counter createFailCounter = new Counter();
         TaskCounter executeFailCounter = new TaskCounter();
@@ -73,11 +75,11 @@ public class App {
 
         for(String sCmd : TEST_CMD_SHEET_3){
             Command command = commandFactory.create(sCmd);
-            command.execute(usablePool, executablePool);
+            command.execute(usableTaskPool, executableTaskPool);
         }
 
         CompositeResult resultPrinter = new CompositeResult(List.of(
-            new UsableTagResult(new ArrayList<>(usablePool)),
+            new UsableTagResult(usableTaskPool.getTasks()),
             new CreateFailResult(createFailCounter.getValueAsView()),
             ExecuteFailResult.from(executeFailCounter.getTaskCountsAsView())));
 
