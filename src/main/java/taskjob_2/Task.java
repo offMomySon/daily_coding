@@ -11,10 +11,10 @@ import org.jetbrains.annotations.NotNull;
  * task 요구사항을 추상화한 데이터 성격의 도메인 객체.
  */
 public class Task implements Comparable<Task>{
-    private final int value;
+    private final int tag;
 
-    private Task(int value) {
-        this.value = value;
+    private Task(int tag) {
+        this.tag = tag;
     }
 
     public static Task of(String value){
@@ -33,27 +33,27 @@ public class Task implements Comparable<Task>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return value == task.value;
+        return tag == task.tag;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(tag);
     }
 
     public String getTagAsView() {
-        return Integer.toString(value);
+        return Integer.toString(tag);
     }
 
     @Override
     public int compareTo(@NotNull Task o) {
-        return value - o.value;
+        return tag - o.tag;
     }
 
     @Override
     public String toString() {
         return "Task{" +
-            "value=" + value +
+            "value=" + tag +
             '}';
     }
 }

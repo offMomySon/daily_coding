@@ -75,9 +75,10 @@ public class App {
         }
 
         CompositeResult resultPrinter = new CompositeResult(List.of(
-            new UsableTagResult(taskPool.getTasks()),
+            UsableTagResult.from(taskPool),
             CreateFailResult.from(createFailCounter),
-            ExecuteFailResult.from(executeFailCounter.getTaskCounts())));
+            ExecuteFailResult.from(executeFailCounter))
+        );
 
         resultPrinter.print();
     }
