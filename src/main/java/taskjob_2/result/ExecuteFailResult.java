@@ -1,32 +1,29 @@
 package taskjob_2.result;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.NonNull;
-import org.apache.commons.lang3.compare.ComparableUtils;
-import org.jetbrains.annotations.NotNull;
 import taskjob_2.aggregator.TaskCount;
+import taskjob_2.aggregator.TaskCounter;
 
 /**
  * task 별 실행 실패 횟수를 출력하는 역할.
  */
 public class ExecuteFailResult implements ResultPrinter {
-    private final List<TaskCount> value;
+    private final List<TaskCount> taskCounts;
 
-    private ExecuteFailResult(@NonNull List<TaskCount> value) {
-        this.value = value;
-    }
-
-    public static ExecuteFailResult from(@NonNull List<TaskCount> taskCounts){
-        List<TaskCount> newTaskCounts = new ArrayList<>(taskCounts);
+    private ExecuteFailResult(@NonNull List<TaskCount> taskCounts) {
+        List<TaskCount> newTaskCounts = taskCounts.stream().collect(Collectors.toUnmodifiableList());
 
         newTaskCounts.sort(new TaskCounterComparator());
 
-        return new ExecuteFailResult(newTaskCounts);
+        this.taskCounts = newTaskCounts;
+    }
+
+    public static ExecuteFailResult from(@NonNull TaskCounter executeFailCounter){
+        return new ExecuteFailResult(executeFailCounter.getTaskCounts());
     }
 
     @Override
@@ -36,7 +33,7 @@ public class ExecuteFailResult implements ResultPrinter {
     }
 
     private String getFailTaskResult(){
-        return value.stream()
+        return taskCounts.stream()
             .map(ft-> MessageFormat.format("{0}({1})",ft.getTask().getTagAsView(), ft.getCount()))
             .collect(Collectors.joining(" "));
     }

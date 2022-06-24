@@ -12,12 +12,14 @@ public class HashedTaskPool {
         pool.addAll(List.of(tasks));
     }
 
-    public void remove(Task task){
+    public Task getExecutableTask(Task task){
         if(notContains(task)){
-            return;
+            throw new RuntimeException("not exist task");
         }
 
         pool.remove(task);
+
+        return task;
     }
 
     private boolean contains(Task task){
