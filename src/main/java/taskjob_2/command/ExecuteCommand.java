@@ -19,13 +19,13 @@ public class ExecuteCommand implements Command{
     }
 
     @Override
-    public void execute(@NonNull TaskPool usablePool, @NonNull HashedTaskPool executablePool) {
-        if(executablePool.notContains(requestTask)){
+    public void execute(@NonNull TaskPool taskPool, @NonNull HashedTaskPool hashedTaskPool) {
+        if(hashedTaskPool.notContains(requestTask)){
             failTaskCounter.increase(requestTask);
             return;
         }
 
-        executablePool.remove(requestTask);
-        usablePool.add(requestTask);
+        Task task = hashedTaskPool.getExecutableTask(requestTask);
+        taskPool.addUsableTask(task);
     }
 }
