@@ -25,7 +25,8 @@ public class ExecuteCommand implements Command{
             return;
         }
 
-        Task task = hashedTaskPool.getExecutableTask(requestTask);
-        taskPool.addUsableTask(task);
+        hashedTaskPool.getExecutableTask(requestTask)
+            .ifPresent(taskPool::addUsableTask);
+
     }
 }

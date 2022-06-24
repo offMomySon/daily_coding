@@ -2,6 +2,7 @@ package taskjob_2.pool;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import taskjob_2.Task;
 
@@ -12,14 +13,14 @@ public class HashedTaskPool {
         pool.addAll(List.of(tasks));
     }
 
-    public Task getExecutableTask(Task task){
+    public Optional<Task> getExecutableTask(Task task){
         if(notContains(task)){
-            throw new RuntimeException("not exist task");
+            return Optional.empty();
         }
 
         pool.remove(task);
 
-        return task;
+        return Optional.of(task);
     }
 
     private boolean contains(Task task){
