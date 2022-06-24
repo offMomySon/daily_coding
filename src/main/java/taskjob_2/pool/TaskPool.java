@@ -13,7 +13,7 @@ public class TaskPool {
         usablePool = new PriorityQueue<>(tasks);
     }
 
-    public void add(Task ...tasks){
+    public void addUsableTask(Task ...tasks){
         usablePool.addAll(List.of(tasks));
     }
 
@@ -21,7 +21,7 @@ public class TaskPool {
         return usablePool.isEmpty();
     }
 
-    public Task pollMinimumTask(){
+    public Task pollMinimumUsableTask(){
         return usablePool.poll();
     }
 

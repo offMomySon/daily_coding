@@ -18,13 +18,13 @@ public class CreateCommand implements Command{
     }
 
     @Override
-    public void execute(@NonNull TaskPool usablePool, @NonNull HashedTaskPool executablePool) {
-        if(usablePool.notLeft()){
+    public void execute(@NonNull TaskPool taskPool, @NonNull HashedTaskPool executablePool) {
+        if(taskPool.notLeft()){
             failCounter.increase();
             return;
         }
 
-        Task task = usablePool.pollMinimumTask();
+        Task task = taskPool.pollMinimumUsableTask();
         executablePool.add(task);
     }
 }
