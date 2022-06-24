@@ -27,5 +27,6 @@ public class ExecuteCommand implements Command{
 
         hashedTaskPool.getExecutableTask(requestTask)
             .ifPresent(taskPool::addUsableTask);
+
     }
 }
