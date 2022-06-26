@@ -1,6 +1,10 @@
 package taskjob;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
 public class Task implements Comparable<Task>{
@@ -10,8 +14,12 @@ public class Task implements Comparable<Task>{
         this.tag = tag;
     }
 
-    public static Task from(String sNum){
+    public static Task from(@NonNull String sNum){
         return new Task(Integer.parseInt(sNum));
+    }
+
+    public static List<Task> getSystemDefaultTasks(){
+        return IntStream.range(1, 10).mapToObj(Task::new).collect(Collectors.toList());
     }
 
     @Override
