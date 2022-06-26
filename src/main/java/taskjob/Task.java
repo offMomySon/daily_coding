@@ -18,7 +18,7 @@ public class Task implements Comparable<Task>{
         return new Task(Integer.parseInt(sNum));
     }
 
-    public static List<Task> getSystemDefaultTasks(){
+    public static List<Task> systemDefaultTasks(){
         return IntStream.range(1, 10).mapToObj(Task::new).collect(Collectors.toList());
     }
 
