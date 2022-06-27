@@ -16,6 +16,14 @@ public class TaskPool {
         return new TaskPool(new PriorityQueue<>(tasks));
     }
 
+    public boolean isEmpty(){
+        return pool.isEmpty();
+    }
+
+    public boolean notEmpty(){
+        return !isEmpty();
+    }
+
     public void add(@NonNull Task task){
         pool.add(task);
     }

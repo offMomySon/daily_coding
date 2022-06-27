@@ -3,10 +3,8 @@ package taskjob;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.NonNull;
 
 public class HashedTaskPool {
@@ -28,7 +26,23 @@ public class HashedTaskPool {
         pool.add(task);
     }
 
-    public Optional<Task> pollIfExist(@NonNull Task task){
+    private boolean contain(@NonNull Task task){
+        return pool.contains(task);
+    }
+
+    public boolean notContain(@NonNull Task task){
+        return !contain(task);
+    }
+
+    public boolean isEmpty(){
+        return pool.isEmpty();
+    }
+
+    public boolean notEmpty(){
+        return !isEmpty();
+    }
+
+    public Optional<Task> poll(@NonNull Task task){
         if(!pool.contains(task)){
             return Optional.empty();
         }
