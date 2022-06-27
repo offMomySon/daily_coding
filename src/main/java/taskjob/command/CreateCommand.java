@@ -1,6 +1,10 @@
-package taskjob;
+package taskjob.command;
 
 import lombok.NonNull;
+import taskjob.aggregator.Counter;
+import taskjob.pool.HashedTaskPool;
+import taskjob.Task;
+import taskjob.pool.TaskPool;
 
 public class CreateCommand implements Command{
     private final Counter createFailCounter;

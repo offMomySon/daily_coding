@@ -1,9 +1,11 @@
-package taskjob;
+package taskjob.result;
 
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.NonNull;
+import taskjob.Task;
+import taskjob.pool.TaskPool;
 
 public class CreatableTaskResult {
     private static final String TAG_NUM_DELIMITER = " ";

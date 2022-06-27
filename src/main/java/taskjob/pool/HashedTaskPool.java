@@ -1,4 +1,4 @@
-package taskjob;
+package taskjob.pool;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import lombok.NonNull;
+import taskjob.Task;
 
 public class HashedTaskPool {
     private final Set<Task> pool;

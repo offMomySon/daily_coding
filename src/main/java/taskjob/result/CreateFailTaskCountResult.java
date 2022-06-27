@@ -1,7 +1,8 @@
-package taskjob;
+package taskjob.result;
 
 import java.text.MessageFormat;
 import lombok.NonNull;
+import taskjob.aggregator.Counter;
 
 public class CreateFailTaskCountResult {
     private final String count;

@@ -1,4 +1,4 @@
-package taskjob;
+package taskjob.aggregator;
 
 public class Counter {
     private int count;

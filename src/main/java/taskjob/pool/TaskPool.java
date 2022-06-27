@@ -1,10 +1,11 @@
-package taskjob;
+package taskjob.pool;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 import lombok.NonNull;
+import taskjob.Task;
 
 public class TaskPool {
     private final PriorityQueue<Task> pool;

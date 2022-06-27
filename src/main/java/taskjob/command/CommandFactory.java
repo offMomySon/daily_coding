@@ -1,7 +1,9 @@
-package taskjob;
+package taskjob.command;
 
 import java.text.MessageFormat;
 import lombok.NonNull;
+import taskjob.aggregator.Counter;
+import taskjob.Task;
 
 public class CommandFactory {
     private static final String CMD_DELIMITER = " ";

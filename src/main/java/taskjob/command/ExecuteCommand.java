@@ -1,7 +1,9 @@
-package taskjob;
+package taskjob.command;
 
-import java.util.Optional;
 import lombok.NonNull;
+import taskjob.pool.HashedTaskPool;
+import taskjob.Task;
+import taskjob.pool.TaskPool;
 
 public class ExecuteCommand implements Command{
     private final Task requestTask;

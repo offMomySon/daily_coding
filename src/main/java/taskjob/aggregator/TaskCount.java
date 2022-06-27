@@ -1,9 +1,10 @@
-package taskjob;
+package taskjob.aggregator;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.NonNull;
+import taskjob.Task;
 
 public class TaskCount {
     private final Map<Task, Integer> groupByTaskCount;
