@@ -52,7 +52,11 @@ public class App {
         TaskPool taskPool = TaskPool.of(Task.systemDefaultTasks());
         HashedTaskPool hashedTaskPool = HashedTaskPool.empty();
 
+        CommandFactory commandFactory = new CommandFactory();
+
         for(String sCmd : TEST_CMD_SHEET_1){
+            Command command = commandFactory.create(sCmd);
+            command.act(taskPool, hashedTaskPool);
         }
     }
 }
