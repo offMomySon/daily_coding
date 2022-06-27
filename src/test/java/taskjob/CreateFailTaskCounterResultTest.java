@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import taskjob.aggregator.Counter;
 import taskjob.result.CreateFailTaskCountResult;
 
-class CreateFailTaskCountResultTest {
+class CreateFailTaskCounterResultTest {
 
     private static final String VIEW_FORMAT = "TASK 생성 실패 : {0}";
 

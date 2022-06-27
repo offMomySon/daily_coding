@@ -3,16 +3,14 @@ package taskjob;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import static org.junit.jupiter.api.Assertions.*;
+import taskjob.aggregator.TaskCounter;
 
-class TaskCountTest {
+class TaskCounterTest {
 
     @DisplayName("입력 받은 task 횟수만큼 count 가 증가합니다.")
     @ParameterizedTest
@@ -22,11 +20,11 @@ class TaskCountTest {
         List<Task> tasks = Arrays.stream(sTags.split(",")).map(Task::from).collect(Collectors.toUnmodifiableList());
         Map<Task, Integer> expect = Map.of(tasks.get(0), tasks.size());
 
-        TaskCount taskCount = new TaskCount();
-        tasks.forEach(taskCount::add);
+        TaskCounter taskCounter = new TaskCounter();
+        tasks.forEach(taskCounter::add);
 
         //when
-        Map<Task, Integer> actual = taskCount.getTaskCountsAsView();
+        Map<Task, Integer> actual = taskCounter.getTaskCountsAsView();
 
         //then
         Assertions.assertThat(actual)
