@@ -5,8 +5,6 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CreateCommandTest {
 
@@ -16,7 +14,7 @@ class CreateCommandTest {
         //given
         TaskPool creatableTaskPool = TaskPool.of(List.of(Task.from("1")));
         HashedTaskPool executableTaskPool = HashedTaskPool.empty();
-        CreateCommand command = new CreateCommand();
+        CreateCommand command = new CreateCommand(new Counter(0));
 
         //when
         command.act(creatableTaskPool, executableTaskPool);
@@ -33,7 +31,7 @@ class CreateCommandTest {
         //given
         TaskPool creatableTaskPool = TaskPool.of(Collections.emptyList());
         HashedTaskPool executableTaskPool = HashedTaskPool.empty();
-        CreateCommand command = new CreateCommand();
+        CreateCommand command = new CreateCommand(new Counter(0));
 
         //when
         command.act(creatableTaskPool, executableTaskPool);

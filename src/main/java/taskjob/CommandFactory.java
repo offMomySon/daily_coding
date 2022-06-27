@@ -1,12 +1,18 @@
 package taskjob;
 
 import java.text.MessageFormat;
+import lombok.NonNull;
 
 public class CommandFactory {
     private static final String CMD_DELIMITER = " ";
-
     private static final int COMMAND_MIN_LENGTH = 1;
     private static final int EXECUTE_COMMAND_MIN_LENGTH = 2;
+
+    private final Counter createFailCounter;
+
+    public CommandFactory(@NonNull Counter createFailCounter) {
+        this.createFailCounter = createFailCounter;
+    }
 
     public Command create(String sCmd){
         String[] splitCmd = sCmd.split(CMD_DELIMITER);
@@ -21,7 +27,7 @@ public class CommandFactory {
 
         switch (cmd){
             case CREATE:
-                return new CreateCommand();
+                return new CreateCommand(createFailCounter);
             case EXECUTE:
                 if(splitCmd.length < EXECUTE_COMMAND_MIN_LENGTH){
                     throw new RuntimeException(MessageFormat.format("execute command min length is {}, current length is {}", EXECUTE_COMMAND_MIN_LENGTH, splitCmd.length));
