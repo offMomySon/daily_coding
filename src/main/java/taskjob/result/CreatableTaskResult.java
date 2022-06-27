@@ -7,7 +7,7 @@ import lombok.NonNull;
 import taskjob.Task;
 import taskjob.pool.TaskPool;
 
-public class CreatableTaskResult {
+public class CreatableTaskResult implements TaskResult {
     private static final String TAG_NUM_DELIMITER = " ";
     private final List<Task> tasks;
 
