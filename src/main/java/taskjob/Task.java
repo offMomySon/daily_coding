@@ -39,4 +39,8 @@ public class Task implements Comparable<Task>{
     public int compareTo(@NotNull Task o) {
         return this.tag - o.tag;
     }
+
+    public String getAsView(){
+        return Integer.toString(tag);
+    }
 }

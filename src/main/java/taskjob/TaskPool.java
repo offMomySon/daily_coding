@@ -3,6 +3,7 @@ package taskjob;
 import java.util.List;
 import java.util.Optional;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 import lombok.NonNull;
 
 public class TaskPool {
@@ -30,5 +31,9 @@ public class TaskPool {
 
     public Optional<Task> pollMinimumTask(){
         return Optional.ofNullable(pool.poll());
+    }
+
+    public List<Task> getTasksAsView(){
+        return pool.stream().collect(Collectors.toUnmodifiableList());
     }
 }

@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CreateTaskFailCountResultTest {
 
+    private static final String VIEW_FORMAT = "TASK 생성 실패 : {0}";
+
     @DisplayName("생성 실패에 대해 count view 를 보여줍니다.")
     @ParameterizedTest
     @ValueSource(ints = {1,2,3,5,100,200})
@@ -17,7 +19,7 @@ class CreateTaskFailCountResultTest {
         Counter counter = new Counter(n);
         CreateTaskFailCountResult createTaskFailCountResult = CreateTaskFailCountResult.from(counter);
 
-        String expect = MessageFormat.format("TASK 생성 실패 : {0}", n);
+        String expect = MessageFormat.format(VIEW_FORMAT, n);
 
         //when
         String actual = createTaskFailCountResult.getResult();
