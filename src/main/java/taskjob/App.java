@@ -61,6 +61,8 @@ public class App {
             command.act(taskPool, hashedTaskPool);
         }
 
+        CreatableTaskResult creatableTaskResult = CreatableTaskResult.from(taskPool);
+        System.out.println(creatableTaskResult.getResult());
         CreateTaskFailCountResult createTaskFailCountResult = CreateTaskFailCountResult.from(createFailCounter);
         System.out.println(createTaskFailCountResult.getResult());
     }
