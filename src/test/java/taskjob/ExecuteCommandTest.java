@@ -5,6 +5,7 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import taskjob.aggregator.TaskCounter;
 import taskjob.command.ExecuteCommand;
 import taskjob.pool.HashedTaskPool;
 import taskjob.pool.TaskPool;
@@ -18,7 +19,7 @@ class ExecuteCommandTest {
         Task requestTask = Task.from("1");
         TaskPool creatableTaskPool = TaskPool.of(Collections.emptyList());
         HashedTaskPool executableTaskPool = HashedTaskPool.of(List.of(requestTask));
-        ExecuteCommand command = new ExecuteCommand(requestTask);
+        ExecuteCommand command = new ExecuteCommand(new TaskCounter(), requestTask);
 
         //when
         command.act(creatableTaskPool, executableTaskPool);
@@ -36,7 +37,7 @@ class ExecuteCommandTest {
         Task requestTask = Task.from("1");
         TaskPool creatableTaskPool = TaskPool.of(Collections.emptyList());
         HashedTaskPool executableTaskPool = HashedTaskPool.empty();
-        ExecuteCommand command = new ExecuteCommand(requestTask);
+        ExecuteCommand command = new ExecuteCommand(new TaskCounter(), requestTask);
 
         //when
         command.act(creatableTaskPool, executableTaskPool);

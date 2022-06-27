@@ -2,14 +2,13 @@ package taskjob.aggregator;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.NonNull;
 import taskjob.Task;
 
-public class TaskCount {
+public class TaskCounter {
     private final Map<Task, Integer> groupByTaskCount;
 
-    public TaskCount() {
+    public TaskCounter() {
         this.groupByTaskCount = new HashMap<>();
     }
 

@@ -4,6 +4,7 @@ import java.text.MessageFormat;
 import lombok.NonNull;
 import taskjob.aggregator.Counter;
 import taskjob.Task;
+import taskjob.aggregator.TaskCounter;
 
 public class CommandFactory {
     private static final String CMD_DELIMITER = " ";
@@ -11,9 +12,11 @@ public class CommandFactory {
     private static final int EXECUTE_COMMAND_MIN_LENGTH = 2;
 
     private final Counter createFailCounter;
+    private final TaskCounter taskFailCounter;
 
-    public CommandFactory(@NonNull Counter createFailCounter) {
+    public CommandFactory(@NonNull Counter createFailCounter, @NonNull TaskCounter taskFailCounter) {
         this.createFailCounter = createFailCounter;
+        this.taskFailCounter = taskFailCounter;
     }
 
     public Command create(String sCmd){
@@ -35,7 +38,7 @@ public class CommandFactory {
                     throw new RuntimeException(MessageFormat.format("execute command min length is {}, current length is {}", EXECUTE_COMMAND_MIN_LENGTH, splitCmd.length));
                 }
                 Task requestTask = Task.from(splitCmd[1]);
-                return new ExecuteCommand(requestTask);
+                return new ExecuteCommand(taskFailCounter, requestTask);
         }
 
         throw new RuntimeException(MessageFormat.format("fail to create cmd. sCmd is `{}`", sCmd));

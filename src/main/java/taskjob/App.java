@@ -2,6 +2,7 @@ package taskjob;
 
 
 import taskjob.aggregator.Counter;
+import taskjob.aggregator.TaskCounter;
 import taskjob.command.Command;
 import taskjob.command.CommandFactory;
 import taskjob.pool.HashedTaskPool;
@@ -61,10 +62,11 @@ public class App {
         HashedTaskPool hashedTaskPool = HashedTaskPool.empty();
 
         Counter createFailCounter = new Counter(0);
+        TaskCounter executeFailCounter = new TaskCounter();
 
-        CommandFactory commandFactory = new CommandFactory(createFailCounter);
+        CommandFactory commandFactory = new CommandFactory(createFailCounter, executeFailCounter);
 
-        for(String sCmd : TEST_CMD_SHEET_1){
+        for(String sCmd : TEST_CMD_SHEET_3){
             Command command = commandFactory.create(sCmd);
             command.act(taskPool, hashedTaskPool);
         }

@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import taskjob.aggregator.Counter;
+import taskjob.aggregator.TaskCounter;
 import taskjob.command.CommandFactory;
 
 class CommandFactoryTest {
@@ -16,7 +17,7 @@ class CommandFactoryTest {
     @ValueSource(strings = {"create", "execute 1", "execute 2", "execute 100"})
     void test1(String sCmd){
         //given
-        CommandFactory commandFactory = new CommandFactory(new Counter(0));
+        CommandFactory commandFactory = new CommandFactory(new Counter(0), new TaskCounter());
 
         //when
         Throwable actual = Assertions.catchThrowable(() -> commandFactory.create(sCmd));
@@ -33,7 +34,7 @@ class CommandFactoryTest {
     @EmptySource
     void test2(String sCmd){
         //given
-        CommandFactory commandFactory = new CommandFactory(new Counter(0));
+        CommandFactory commandFactory = new CommandFactory(new Counter(0), new TaskCounter());
 
         //when
         Throwable actual = Assertions.catchThrowable(()-> commandFactory.create(sCmd));
