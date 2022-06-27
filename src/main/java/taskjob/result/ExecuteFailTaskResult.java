@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import taskjob.Task;
 import taskjob.aggregator.TaskCounter;
 
-public class ExecuteFailTaskResult {
+public class ExecuteFailTaskResult implements TaskResult {
     private static final String RESULT_DELIMITER = " ";
 
     private final List<FailTaskCount> failTaskCounts;

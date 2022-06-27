@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import lombok.NonNull;
 import taskjob.aggregator.Counter;
 
-public class CreateFailTaskCountResult {
+public class CreateFailTaskCountResult implements TaskResult {
     private final String count;
 
     private CreateFailTaskCountResult(@NonNull String count) {
