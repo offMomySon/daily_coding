@@ -30,5 +30,4 @@ class TaskTest {
         //then
         Assertions.assertThat(actual).isNotNull();
     }
-
 }

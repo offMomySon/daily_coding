@@ -2,13 +2,13 @@ package taskjob;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import static org.junit.jupiter.api.Assertions.*;
 
 class HashedTaskPoolTest {
 
@@ -23,7 +23,7 @@ class HashedTaskPoolTest {
         Task expect = tasks.stream().findAny().orElseThrow();
 
         //when
-        Task actual = pool.pollIfExist(expect).orElseThrow();
+        Task actual = pool.poll(expect).orElseThrow();
 
         //then
         Assertions.assertThat(actual)
@@ -41,10 +41,45 @@ class HashedTaskPoolTest {
         HashedTaskPool pool = HashedTaskPool.of(Arrays.stream(sNums.split(",")).map(Task::from).collect(Collectors.toList()));
 
         //when
-        boolean actual = pool.pollIfExist(notExistTask).isEmpty();
+        boolean actual = pool.poll(notExistTask).isEmpty();
 
         //then
         Assertions.assertThat(actual)
             .isTrue();
     }
+
+    @DisplayName("pool 이 비어있는 상태이면 true 를 반환합니다.")
+    @Test
+    void test3() {
+        //given
+        HashedTaskPool hashedTaskPool = HashedTaskPool.empty();
+
+        //when
+        boolean actual = hashedTaskPool.isEmpty();
+
+        //then
+        Assertions.assertThat(actual)
+            .isTrue();
+    }
+
+    @DisplayName("pool 에 존재하지 않는 task 라면 true 를 반환합니다.")
+    @ParameterizedTest
+    @CsvSource(value = {"1,2", "2,3", "4,5"})
+    void test4(String includeTag, String notIncludeTag) {
+        //given
+        Task includeTask = Task.from(includeTag);
+        Task notIncludeTask = Task.from(notIncludeTag);
+
+        HashedTaskPool hashedTaskPool = HashedTaskPool.empty();
+
+        hashedTaskPool.add(includeTask);
+
+        //when
+        boolean actual = hashedTaskPool.notContain(notIncludeTask);
+
+        //then
+        Assertions.assertThat(actual)
+            .isTrue();
+    }
+
 }
