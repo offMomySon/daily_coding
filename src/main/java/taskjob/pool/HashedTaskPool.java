@@ -20,7 +20,7 @@ public class HashedTaskPool {
     }
 
     public static HashedTaskPool empty(){
-        return new HashedTaskPool(Collections.EMPTY_SET);
+        return new HashedTaskPool(Collections.emptySet());
     }
 
     public void add(@NonNull Task task){
@@ -37,10 +37,6 @@ public class HashedTaskPool {
 
     public boolean isEmpty(){
         return pool.isEmpty();
-    }
-
-    public boolean notEmpty(){
-        return !isEmpty();
     }
 
     public Optional<Task> poll(@NonNull Task task){

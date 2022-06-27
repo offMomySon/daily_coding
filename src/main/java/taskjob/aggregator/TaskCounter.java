@@ -15,6 +15,7 @@ public class TaskCounter {
     public void add(@NonNull Task task){
         if(groupByTaskCount.containsKey(task)){
             groupByTaskCount.put(task, groupByTaskCount.get(task) + 1);
+            return;
         }
 
         groupByTaskCount.put(task, 1);
