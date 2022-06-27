@@ -9,6 +9,7 @@ import taskjob.pool.HashedTaskPool;
 import taskjob.pool.TaskPool;
 import taskjob.result.CreatableTaskResult;
 import taskjob.result.CreateFailTaskCountResult;
+import taskjob.result.ExecuteFailTaskResult;
 
 public class App {
     private static final String[] TEST_CMD_SHEET_1= {
@@ -75,5 +76,7 @@ public class App {
         System.out.println(creatableTaskResult.getResult());
         CreateFailTaskCountResult createFailTaskCountResult = CreateFailTaskCountResult.from(createFailCounter);
         System.out.println(createFailTaskCountResult.getResult());
+        ExecuteFailTaskResult executeFailTaskResult = ExecuteFailTaskResult.from(executeFailCounter);
+        System.out.println(executeFailTaskResult.getResult());
     }
 }
