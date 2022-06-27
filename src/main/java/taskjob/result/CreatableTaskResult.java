@@ -16,7 +16,9 @@ public class CreatableTaskResult implements TaskResult {
     }
 
     public static CreatableTaskResult from(@NonNull TaskPool taskPool){
-        return new CreatableTaskResult(taskPool.getTasksAsView());
+        List<Task> creatableTasks = taskPool.getTasksAsView().stream().sorted().collect(Collectors.toUnmodifiableList());
+
+        return new CreatableTaskResult(creatableTasks);
     }
 
     public String getResult(){
