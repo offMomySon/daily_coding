@@ -3,15 +3,15 @@ package taskjob;
 import java.text.MessageFormat;
 import lombok.NonNull;
 
-public class CreateTaskFailCountResult {
+public class CreateFailTaskCountResult {
     private final String count;
 
-    private CreateTaskFailCountResult(@NonNull String count) {
+    private CreateFailTaskCountResult(@NonNull String count) {
         this.count = count;
     }
 
-    public static CreateTaskFailCountResult from(@NonNull Counter counter){
-        return new CreateTaskFailCountResult(counter.getCountAsView());
+    public static CreateFailTaskCountResult from(@NonNull Counter counter){
+        return new CreateFailTaskCountResult(counter.getCountAsView());
     }
 
     public String getResult() {

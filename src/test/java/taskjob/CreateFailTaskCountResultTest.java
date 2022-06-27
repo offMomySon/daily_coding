@@ -5,9 +5,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import static org.junit.jupiter.api.Assertions.*;
 
-class CreateTaskFailCountResultTest {
+class CreateFailTaskCountResultTest {
 
     private static final String VIEW_FORMAT = "TASK 생성 실패 : {0}";
 
@@ -17,12 +16,12 @@ class CreateTaskFailCountResultTest {
     void test1(int n){
         //given
         Counter counter = new Counter(n);
-        CreateTaskFailCountResult createTaskFailCountResult = CreateTaskFailCountResult.from(counter);
+        CreateFailTaskCountResult createFailTaskCountResult = CreateFailTaskCountResult.from(counter);
 
         String expect = MessageFormat.format(VIEW_FORMAT, n);
 
         //when
-        String actual = createTaskFailCountResult.getResult();
+        String actual = createFailTaskCountResult.getResult();
 
         //then
         Assertions.assertThat(actual)
